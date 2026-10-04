@@ -3,7 +3,6 @@ import CinematicHero from "@/components/CinematicHero";
 import SelectedWork from "@/components/SelectedWork";
 import LabSection from "@/components/LabSection";
 import SkillsSection from "@/components/SkillsSection";
-import JourneySection from "@/components/JourneySection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 
@@ -19,7 +18,6 @@ export default function Home() {
         <SelectedWork />
         <LabSection />
         <SkillsSection />
-        <JourneySection />
         <AboutSection />
       </main>
       <ContactSection />
