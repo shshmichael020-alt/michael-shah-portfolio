@@ -346,12 +346,15 @@ export const CONTACT_INFO = {
 export const FORMSPREE_ENDPOINT = "https://formspree.io/f/mbglnvwd";
 
 /**
- * GitHub Pages Project Base Path
- * Automatically prefixes assets in production for GitHub Pages project hosting (/michael-shah-portfolio)
- * while preserving clean root paths during local development.
+ * Environment-Aware Base Path
+ * - GitHub Pages builds set NEXT_PUBLIC_BASE_PATH=/michael-shah-portfolio
+ * - Cloudflare Pages and local development leave it unset/empty ("")
  */
-export const BASE_PATH =
-  process.env.NODE_ENV === "production" ? "/michael-shah-portfolio" : "";
+const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+export const BASE_PATH = rawBasePath
+  ? (rawBasePath.startsWith("/") ? rawBasePath : `/${rawBasePath}`).replace(/\/$/, "")
+  : "";
+
 
 
 

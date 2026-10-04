@@ -5,7 +5,7 @@ import { SITE_METADATA, BASE_PATH } from "@/lib/constants";
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NODE_ENV === "production"
-      ? "https://shshmichael020-alt.github.io"
+      ? (BASE_PATH ? "https://shshmichael020-alt.github.io" : "https://michael-shah-portfolio.pages.dev")
       : "http://localhost:3000"
   ),
   title: SITE_METADATA.title,
