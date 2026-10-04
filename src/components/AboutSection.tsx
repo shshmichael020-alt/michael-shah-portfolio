@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PERSONAL_INTERESTS } from "@/lib/constants";
+import { PERSONAL_INTERESTS, BASE_PATH } from "@/lib/constants";
 
 export default function AboutSection() {
   return (
@@ -113,7 +113,7 @@ export default function AboutSection() {
           <div className="lg:col-span-5 flex flex-col items-center lg:items-end w-full">
             <div className="relative w-full max-w-md aspect-[3/4] bg-surface-1 border border-white/10 overflow-hidden shadow-2xl">
               <Image
-                src="/assets/about-portrait-dark.png"
+                src={`${BASE_PATH}/assets/about-portrait-dark.png`}
                 alt="Michael Shah - Computer Science Student at Jain University"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"

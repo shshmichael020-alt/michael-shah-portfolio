@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
-import { SITE_METADATA } from "@/lib/constants";
+import { SITE_METADATA, BASE_PATH } from "@/lib/constants";
 
 export default function CinematicHero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -190,8 +190,8 @@ export default function CinematicHero() {
             aria-hidden="true"
             className="w-full h-full object-cover object-[center_30%] filter contrast-[1.08] brightness-[0.92]"
           >
-            <source src="/assets/hero.webm" type="video/webm" />
-            <source src="/assets/hero.mp4" type="video/mp4" />
+            <source src={`${BASE_PATH}/assets/hero.webm`} type="video/webm" />
+            <source src={`${BASE_PATH}/assets/hero.mp4`} type="video/mp4" />
           </video>
         )}
 
@@ -257,7 +257,7 @@ export default function CinematicHero() {
             >
               {/* Permanent Poster Image */}
               <Image
-                src="/assets/poster.jpg"
+                src={`${BASE_PATH}/assets/poster.jpg`}
                 alt="Michael Shah Portrait"
                 fill
                 priority

@@ -345,4 +345,13 @@ export const CONTACT_INFO = {
  */
 export const FORMSPREE_ENDPOINT = "https://formspree.io/f/mbglnvwd";
 
+/**
+ * GitHub Pages Project Base Path
+ * Automatically prefixes assets in production for GitHub Pages project hosting (/michael-shah-portfolio)
+ * while preserving clean root paths during local development.
+ */
+export const BASE_PATH =
+  process.env.NODE_ENV === "production" ? "/michael-shah-portfolio" : "";
+
+
 

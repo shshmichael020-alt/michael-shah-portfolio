@@ -1,9 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { SITE_METADATA } from "@/lib/constants";
+import { SITE_METADATA, BASE_PATH } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://michaelshah.dev"),
+  metadataBase: new URL(
+    process.env.NODE_ENV === "production"
+      ? "https://shshmichael020-alt.github.io"
+      : "http://localhost:3000"
+  ),
   title: SITE_METADATA.title,
   description: SITE_METADATA.description,
   authors: [{ name: SITE_METADATA.author }],
@@ -19,9 +23,9 @@ export const metadata: Metadata = {
     "Experimental Technology",
   ],
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: `${BASE_PATH}/icon.svg`,
+    shortcut: `${BASE_PATH}/icon.svg`,
+    apple: `${BASE_PATH}/icon.svg`,
   },
   openGraph: {
     title: SITE_METADATA.title,
@@ -30,7 +34,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/assets/poster.jpg",
+        url: `${BASE_PATH}/assets/poster.jpg`,
         width: 1280,
         height: 720,
         alt: "Michael Shah Portrait",
@@ -41,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_METADATA.title,
     description: SITE_METADATA.description,
-    images: ["/assets/poster.jpg"],
+    images: [`${BASE_PATH}/assets/poster.jpg`],
   },
 };
 
