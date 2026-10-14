@@ -28,9 +28,9 @@ const config: Config = {
         "outline-variant": "rgba(255, 255, 255, 0.08)",
       },
       fontFamily: {
-        sans: ["var(--font-geist)", "Geist", "sans-serif"],
+        sans: ["var(--font-geist)", "Geist", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "JetBrains Mono", "monospace"],
-        display: ["var(--font-syne)", "Syne", "sans-serif"],
+        display: ["var(--font-geist)", "Geist", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },
       letterSpacing: {
         tighter: "-0.04em",

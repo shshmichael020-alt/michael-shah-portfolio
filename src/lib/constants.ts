@@ -318,16 +318,6 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
 export const CONTACT_INFO = {
   email: "shshmichael020@gmail.com",
   emailHref: "mailto:shshmichael020@gmail.com",
-  whatsAppIndia: {
-    label: "+91 6360459172",
-    region: "India",
-    href: "https://wa.me/916360459172",
-  },
-  whatsAppNepal: {
-    label: "+977 9707786335",
-    region: "Nepal",
-    href: "https://wa.me/9779707786335",
-  },
   github: {
     handle: "github.com/shshmichael020-alt",
     href: "https://github.com/shshmichael020-alt",

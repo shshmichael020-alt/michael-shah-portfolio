@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { SITE_METADATA, BASE_PATH } from "@/lib/constants";
+import StreamingText from "./StreamingText";
 
 export default function CinematicHero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -205,42 +206,45 @@ export default function CinematicHero() {
       <div className="relative z-10 max-w-[1536px] mx-auto w-full flex-1 flex flex-col justify-between py-6 lg:py-10">
         {/* Main 12-Column Two-Zone Editorial Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center my-auto w-full">
-          {/* LEFT ZONE: Identity Pill, Monumental Headline, Statement & CTAs */}
+          {/* LEFT ZONE: Identity Pill, Refined Headline, Statement & CTAs */}
           <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center space-y-6 sm:space-y-8">
             {/* Identity Pill */}
-            <div className="inline-flex items-center gap-2.5 px-3 py-1 bg-surface-1/90 backdrop-blur-md border border-white/10 text-[10px] sm:text-[11px] font-mono tracking-widest text-text-secondary uppercase w-fit">
-              <span className="w-1.5 h-1.5 bg-accent-cyan animate-pulse" aria-hidden="true" />
-              <span>Systems &amp; Creative Engineering</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-1/80 border border-white/10 text-[11px] font-mono tracking-wider text-text-secondary w-fit rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse" aria-hidden="true" />
+              <span>Computer Science &amp; Systems Engineering</span>
             </div>
 
-            {/* Monumental Headline */}
-            <h1 className="font-display font-extrabold text-[2.75rem] sm:text-[4rem] lg:text-[4.5rem] xl:text-[5.5rem] leading-[0.92] tracking-tighter text-white uppercase select-none">
-              THIS IS<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/60">
-                MICHAEL.
-              </span>
+            {/* Headline */}
+            <h1 className="font-display font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-white select-none">
+              This is <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-accent-cyan/80">Michael.</span>
             </h1>
 
-            {/* Supporting Statement */}
-            <p className="text-base sm:text-lg lg:text-xl font-normal text-text-primary/90 max-w-xl leading-relaxed tracking-tight">
-              {SITE_METADATA.subheadline}
-            </p>
+            {/* Supporting Statement with smooth progressive streaming */}
+            <div className="text-sm sm:text-base lg:text-lg font-normal text-text-secondary max-w-xl leading-relaxed min-h-[4rem]">
+              <StreamingText
+                text={SITE_METADATA.subheadline}
+                speed={16}
+                delay={200}
+                startImmediately={true}
+                showCursor={true}
+              />
+            </div>
 
             {/* Sharp Action Triggers */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-3.5 sm:gap-4 pt-2">
               <a
                 href="#selected-work"
-                className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 bg-white text-black font-mono text-xs font-semibold tracking-wider uppercase hover:bg-accent-cyan hover:text-black transition-colors duration-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan text-center"
+                className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 bg-white text-black font-sans text-xs sm:text-sm font-medium tracking-wide hover:bg-accent-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan text-center"
               >
-                <span>EXPLORE WHAT I BUILD</span>
-                <span className="text-sm font-bold" aria-hidden="true">→</span>
+                <span>Explore Selected Work</span>
+                <span className="text-sm" aria-hidden="true">→</span>
               </a>
 
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 bg-transparent border border-white/20 text-text-secondary font-mono text-xs tracking-wider uppercase hover:text-white hover:border-white/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan text-center"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 bg-transparent border border-white/20 text-text-secondary font-sans text-xs sm:text-sm font-medium tracking-wide hover:text-white hover:border-white/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan text-center"
               >
-                <span>GET IN TOUCH</span>
+                <span>Get in Touch</span>
                 <span className="text-sm" aria-hidden="true">↗</span>
               </a>
             </div>
@@ -270,13 +274,13 @@ export default function CinematicHero() {
               <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-canvas/40 via-transparent to-transparent" />
 
               {/* Technical framing markers */}
-              <div className="absolute top-3 left-3 pointer-events-none flex items-center gap-2 px-2 py-0.5 bg-canvas/80 backdrop-blur-sm border border-white/10 text-[9px] font-mono text-text-muted tracking-widest uppercase">
-                <span>PORTRAIT // ARCHIVE</span>
+              <div className="absolute top-3 left-3 pointer-events-none flex items-center gap-2 px-2.5 py-1 bg-canvas/90 backdrop-blur-sm border border-white/10 text-[10px] font-mono text-text-secondary tracking-wide">
+                <span>Bengaluru, India</span>
               </div>
 
-              <div className="absolute bottom-3 right-3 pointer-events-none flex items-center gap-2 px-2 py-0.5 bg-canvas/80 backdrop-blur-sm border border-white/10 text-[9px] font-mono tracking-widest uppercase text-text-secondary">
-                <span className="w-1.5 h-1.5 bg-white/40" aria-hidden="true" />
-                <span>MICHAEL SHAH</span>
+              <div className="absolute bottom-3 right-3 pointer-events-none flex items-center gap-2 px-2.5 py-1 bg-canvas/90 backdrop-blur-sm border border-white/10 text-[10px] font-mono tracking-wide text-text-secondary">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan" aria-hidden="true" />
+                <span>Michael Shah</span>
               </div>
             </div>
           </div>

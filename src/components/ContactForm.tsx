@@ -32,20 +32,20 @@ export default function ContactForm() {
   const validate = (): boolean => {
     const errs: FormErrors = {};
     if (!formData.name.trim()) {
-      errs.name = "Identification / name is required.";
+      errs.name = "Please enter your name.";
     } else if (formData.name.trim().length < 2) {
       errs.name = "Name must be at least 2 characters.";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      errs.email = "Return address / email is required.";
+      errs.email = "Please enter your email.";
     } else if (!emailRegex.test(formData.email.trim())) {
-      errs.email = "Please specify a valid email format.";
+      errs.email = "Please specify a valid email address.";
     }
 
     if (!formData.message.trim()) {
-      errs.message = "Transmission payload / message cannot be empty.";
+      errs.message = "Please write a message.";
     } else if (formData.message.trim().length < 5) {
       errs.message = "Message must be at least 5 characters.";
     }
@@ -89,7 +89,7 @@ export default function ContactForm() {
 
       if (!response.ok) {
         const data = await response.json().catch(() => null);
-        let errorMsg = "Failed to dispatch transmission.";
+        let errorMsg = "Failed to send message.";
         if (data?.errors && Array.isArray(data.errors) && data.errors.length > 0) {
           errorMsg =
             data.errors
@@ -103,7 +103,7 @@ export default function ContactForm() {
       }
 
       setStatus("success");
-      setServerMessage("Message received.");
+      setServerMessage("Message sent.");
       setFormData({
         name: "",
         email: "",
@@ -121,33 +121,33 @@ export default function ContactForm() {
   if (status === "success") {
     return (
       <div
-        className="p-8 bg-surface-1 border border-accent-cyan/30 flex flex-col gap-5 transition-all"
+        className="p-8 bg-surface-1 border border-accent-cyan/40 flex flex-col gap-4 transition-all"
         role="status"
         aria-live="polite"
       >
-        <div className="flex items-center gap-2.5">
-          <span className="w-2 h-2 bg-accent-cyan animate-pulse" aria-hidden="true" />
-          <span className="text-[11px] font-mono uppercase tracking-widest text-accent-cyan">
-            STATUS: 200 OK // TRANSMISSION LOGGED
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-accent-cyan" aria-hidden="true" />
+          <span className="text-xs font-mono text-accent-cyan font-medium">
+            Message Sent Successfully
           </span>
         </div>
 
-        <div className="space-y-2">
-          <h3 className="font-display font-extrabold text-2xl uppercase tracking-tight text-white">
-            MESSAGE RECEIVED.
+        <div className="space-y-1">
+          <h3 className="font-display font-semibold text-xl text-white">
+            Thank you!
           </h3>
-          <p className="text-sm font-sans text-text-secondary font-light leading-relaxed">
-            I’ll get back to you soon.
+          <p className="text-sm text-text-secondary font-light leading-relaxed">
+            Your message has been delivered directly to Michael&apos;s inbox. I will get back to you shortly.
           </p>
         </div>
 
-        <div className="pt-4 border-t border-white/[0.06]">
+        <div className="pt-3 border-t border-white/[0.06]">
           <button
             type="button"
             onClick={() => setStatus("idle")}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-transparent border border-white/20 text-white font-mono text-xs uppercase tracking-wider hover:border-accent-cyan hover:text-accent-cyan transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-cyan"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-transparent border border-white/20 text-white font-sans text-xs hover:border-accent-cyan hover:text-accent-cyan transition-colors"
           >
-            <span>[ INITIATE NEW TRANSMISSION ]</span>
+            <span>Send Another Message</span>
           </button>
         </div>
       </div>
@@ -158,15 +158,15 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="flex flex-col gap-6 p-6 sm:p-8 bg-surface-1/60 border border-white/[0.08]"
-      aria-label="Contact Transmission Form"
+      className="flex flex-col gap-5 p-6 sm:p-8 bg-surface-1/50 border border-white/[0.08]"
+      aria-label="Contact Form"
     >
       <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-text-muted">
-          Transmission Form // Secure Relay
+        <span className="text-xs font-mono uppercase tracking-wider text-text-muted">
+          Send a Message
         </span>
-        <span className="text-[10px] font-mono text-accent-cyan">
-          ENCRYPTED VIA SSL
+        <span className="text-xs font-mono text-text-muted">
+          Direct to inbox
         </span>
       </div>
 
@@ -190,22 +190,22 @@ export default function ContactForm() {
           className="p-4 bg-red-950/40 border border-red-500/40 text-red-200 text-xs font-mono space-y-1"
           role="alert"
         >
-          <div className="font-semibold uppercase tracking-wider text-red-400">
-            Transmission Error
+          <div className="font-semibold text-red-400">
+            Delivery Error
           </div>
-          <div>{serverMessage || "Transmission rejected. Please verify your connection or reach out directly."}</div>
+          <div>{serverMessage || "Message could not be sent. Please verify your connection or email directly."}</div>
         </div>
       )}
 
       {/* Field: Name */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1.5">
         <label
           htmlFor="contact-name"
-          className="text-xs font-mono uppercase tracking-wider text-text-secondary flex items-center justify-between"
+          className="text-xs font-mono text-text-secondary flex items-center justify-between"
         >
-          <span>01 // YOUR NAME *</span>
+          <span>Your Name *</span>
           {errors.name && (
-            <span className="text-[11px] text-red-400 normal-case font-mono">
+            <span className="text-xs text-red-400 font-sans">
               {errors.name}
             </span>
           )}
@@ -221,19 +221,19 @@ export default function ContactForm() {
           onChange={handleChange}
           placeholder="Michael Shah"
           aria-invalid={!!errors.name}
-          className="w-full bg-surface-2/80 border border-white/10 px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/60 font-sans focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-colors disabled:opacity-50"
+          className="w-full bg-surface-2/80 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted/60 font-sans focus:outline-none focus:border-accent-cyan transition-colors disabled:opacity-50"
         />
       </div>
 
       {/* Field: Email */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1.5">
         <label
           htmlFor="contact-email"
-          className="text-xs font-mono uppercase tracking-wider text-text-secondary flex items-center justify-between"
+          className="text-xs font-mono text-text-secondary flex items-center justify-between"
         >
-          <span>02 // RETURN EMAIL *</span>
+          <span>Email Address *</span>
           {errors.email && (
-            <span className="text-[11px] text-red-400 normal-case font-mono">
+            <span className="text-xs text-red-400 font-sans">
               {errors.email}
             </span>
           )}
@@ -249,19 +249,19 @@ export default function ContactForm() {
           onChange={handleChange}
           placeholder="your.email@domain.com"
           aria-invalid={!!errors.email}
-          className="w-full bg-surface-2/80 border border-white/10 px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/60 font-sans focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-colors disabled:opacity-50"
+          className="w-full bg-surface-2/80 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted/60 font-sans focus:outline-none focus:border-accent-cyan transition-colors disabled:opacity-50"
         />
       </div>
 
       {/* Field: Message */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1.5">
         <label
           htmlFor="contact-message"
-          className="text-xs font-mono uppercase tracking-wider text-text-secondary flex items-center justify-between"
+          className="text-xs font-mono text-text-secondary flex items-center justify-between"
         >
-          <span>03 // MESSAGE / INQUIRY *</span>
+          <span>Message *</span>
           {errors.message && (
-            <span className="text-[11px] text-red-400 normal-case font-mono">
+            <span className="text-xs text-red-400 font-sans">
               {errors.message}
             </span>
           )}
@@ -274,9 +274,9 @@ export default function ContactForm() {
           disabled={status === "submitting"}
           value={formData.message}
           onChange={handleChange}
-          placeholder="Outline the systems, security, or collaboration inquiry..."
+          placeholder="Write your note, systems question, or project inquiry..."
           aria-invalid={!!errors.message}
-          className="w-full bg-surface-2/80 border border-white/10 px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/60 font-sans focus:outline-none focus:border-accent-cyan focus:ring-1 focus:ring-accent-cyan transition-colors resize-y min-h-[120px] disabled:opacity-50"
+          className="w-full bg-surface-2/80 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted/60 font-sans focus:outline-none focus:border-accent-cyan transition-colors resize-y min-h-[110px] disabled:opacity-50"
         />
       </div>
 
@@ -285,18 +285,18 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-black font-mono text-xs font-semibold tracking-wider uppercase hover:bg-accent-cyan hover:text-black transition-colors duration-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center justify-center gap-2.5 px-7 py-3 bg-white text-black font-sans text-xs sm:text-sm font-medium tracking-wide hover:bg-accent-cyan transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span>
-            {status === "submitting" ? "TRANSMITTING..." : "SEND TRANSMISSION"}
+            {status === "submitting" ? "Sending..." : "Send Message"}
           </span>
-          <span className="text-sm font-bold" aria-hidden="true">
+          <span className="text-sm" aria-hidden="true">
             {status === "submitting" ? "..." : "→"}
           </span>
         </button>
 
-        <span className="text-[11px] font-mono text-text-muted">
-          Direct to inbox // No third-party tracking
+        <span className="text-xs font-mono text-text-muted">
+          Encrypted transport · Direct to Michael
         </span>
       </div>
     </form>
