@@ -93,7 +93,7 @@ export default function CinematicHero() {
       isPlayingRef.current = false;
       setIsPlaying(false);
 
-      // When video ends: fades out background layer, restores poster, schedules 30s replay
+      // When video ends: fades out video layer, softly reveals atmospheric poster, schedules 30s replay
       scheduleReplay();
     };
 
@@ -175,39 +175,60 @@ export default function CinematicHero() {
       aria-label="Hero Overview"
       className="relative w-full min-h-[calc(100vh-4rem)] flex flex-col justify-between overflow-hidden pt-24 pb-8 sm:pb-10 px-6 sm:px-10 md:px-12 lg:px-16 border-b border-white/[0.06] bg-canvas"
     >
-      {/* LAYER 2 — TEMPORARY CINEMATIC VIDEO BACKGROUND LAYER (Only visible while playing) */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0 overflow-hidden transition-opacity duration-700 ease-out"
-        style={{ opacity: isPlaying ? 1 : 0 }}
-        aria-hidden="true"
-      >
+      {/* ATMOSPHERIC BACKGROUND VISUAL SYSTEM (Video while playing; softly blended Poster when ended/paused) */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        {/* Layer A: Atmospheric Blended Poster Image (Visible when video is not playing or in reduced motion) */}
+        <div
+          className="absolute inset-0 transition-opacity duration-1000 ease-out"
+          style={{ opacity: isPlaying ? 0 : 1 }}
+        >
+          <Image
+            src={`${BASE_PATH}/assets/poster.jpg`}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="w-full h-full object-cover object-[center_28%] md:object-[68%_30%] lg:object-[72%_32%] filter contrast-[1.04] brightness-[0.88] opacity-35 sm:opacity-70 lg:opacity-85"
+          />
+        </div>
+
+        {/* Layer B: Temporary Cinematic Video (Smoothly fades in while playing; fades out on completion) */}
         {!isReducedMotion && (
-          <video
-            ref={videoRef}
-            muted
-            playsInline
-            preload="auto"
-            tabIndex={-1}
-            aria-hidden="true"
-            className="w-full h-full object-cover object-[center_30%] filter contrast-[1.08] brightness-[0.92]"
+          <div
+            className="absolute inset-0 transition-opacity duration-1000 ease-out"
+            style={{ opacity: isPlaying ? 1 : 0 }}
           >
-            <source src={`${BASE_PATH}/assets/hero.webm`} type="video/webm" />
-            <source src={`${BASE_PATH}/assets/hero.mp4`} type="video/mp4" />
-          </video>
+            <video
+              ref={videoRef}
+              muted
+              playsInline
+              preload="auto"
+              tabIndex={-1}
+              aria-hidden="true"
+              className="w-full h-full object-cover object-[center_28%] md:object-[68%_30%] lg:object-[72%_32%] filter contrast-[1.08] brightness-[0.92]"
+            >
+              <source src={`${BASE_PATH}/assets/hero.webm`} type="video/webm" />
+              <source src={`${BASE_PATH}/assets/hero.mp4`} type="video/mp4" />
+            </video>
+          </div>
         )}
 
-        {/* Controlled gradient overlay: dark behind left text for crisp readability, open on right for vivid footage */}
-        <div className="absolute inset-0 bg-gradient-to-r from-canvas/95 via-canvas/60 via-40% to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-canvas via-transparent to-canvas/30 pointer-events-none" />
+        {/* Controlled Edge-Blending & Contrast Overlays:
+            - Left: Deep canvas gradient protecting headline, subheadline, and CTAs
+            - Top & Bottom: Soft vignette feathering into page borders and navbar
+            - Right: Subtle edge fade eliminating any rectangular boundaries */}
+        <div className="absolute inset-0 bg-gradient-to-r from-canvas via-canvas/90 via-40% sm:via-48% to-canvas/30 lg:to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-canvas via-transparent to-canvas/50 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-l from-canvas/70 via-transparent to-transparent pointer-events-none" />
         <div className="absolute inset-0 film-grain opacity-20 pointer-events-none" />
       </div>
 
-      {/* LAYER 1 — HERO FOREGROUND CONTENT */}
+      {/* FOREGROUND HERO CONTENT */}
       <div className="relative z-10 max-w-[1536px] mx-auto w-full flex-1 flex flex-col justify-between py-6 lg:py-10">
-        {/* Main 12-Column Two-Zone Editorial Grid */}
+        {/* Main 12-Column Editorial Grid: Left Text + Right Open Atmospheric Visual */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center my-auto w-full">
           {/* LEFT ZONE: Identity Pill, Refined Headline, Statement & CTAs */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center space-y-6 sm:space-y-8">
+          <div className="lg:col-span-7 xl:col-span-6 flex flex-col justify-center space-y-6 sm:space-y-8">
             {/* Identity Pill */}
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-1/80 border border-white/10 text-[11px] font-mono tracking-wider text-text-secondary w-fit rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse" aria-hidden="true" />
@@ -230,7 +251,7 @@ export default function CinematicHero() {
               />
             </div>
 
-            {/* Sharp Action Triggers */}
+            {/* Action Triggers */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-3.5 sm:gap-4 pt-2">
               <a
                 href="#selected-work"
@@ -250,40 +271,8 @@ export default function CinematicHero() {
             </div>
           </div>
 
-          {/* RIGHT ZONE: Hero Media Panel (poster.jpg) - Visible BEFORE & AFTER video, HIDDEN during video */}
-          <div className="lg:col-span-6 xl:col-span-6 w-full flex items-center justify-center lg:justify-end">
-            <div
-              className="relative w-full max-w-2xl aspect-[16/10] sm:aspect-[16/9] bg-surface-1 border border-white/10 overflow-hidden shadow-2xl transition-opacity duration-700 ease-out"
-              style={{
-                opacity: isPlaying ? 0 : 1,
-                pointerEvents: isPlaying ? "none" : "auto",
-              }}
-            >
-              {/* Permanent Poster Image */}
-              <Image
-                src={`${BASE_PATH}/assets/poster.jpg`}
-                alt="Michael Shah Portrait"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center filter contrast-[1.05] brightness-[0.92]"
-              />
-
-              {/* Subtle cinematic overlays */}
-              <div className="absolute inset-0 pointer-events-none film-grain opacity-25" />
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-canvas/40 via-transparent to-transparent" />
-
-              {/* Technical framing markers */}
-              <div className="absolute top-3 left-3 pointer-events-none flex items-center gap-2 px-2.5 py-1 bg-canvas/90 backdrop-blur-sm border border-white/10 text-[10px] font-mono text-text-secondary tracking-wide">
-                <span>Bengaluru, India</span>
-              </div>
-
-              <div className="absolute bottom-3 right-3 pointer-events-none flex items-center gap-2 px-2.5 py-1 bg-canvas/90 backdrop-blur-sm border border-white/10 text-[10px] font-mono tracking-wide text-text-secondary">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan" aria-hidden="true" />
-                <span>Michael Shah</span>
-              </div>
-            </div>
-          </div>
+          {/* RIGHT ZONE: Unboxed open space on desktop allowing the blended background visual to breathe */}
+          <div className="hidden lg:block lg:col-span-5 xl:col-span-6 pointer-events-none" aria-hidden="true" />
         </div>
 
         {/* Downward Subtle Scroll Cue */}

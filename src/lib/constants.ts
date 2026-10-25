@@ -215,47 +215,68 @@ export const SELECTED_PROJECTS: Project[] = [
     id: "ghostshare",
     index: "01 // WORK",
     title: "GhostShare",
-    subtitle: "Network-Independent Cloud-Relayed File Transfer",
-    category: "Cloud Systems / File Transfer",
+    subtitle: "WebRTC Peer-to-Peer File Transfer",
+    category: "Distributed Systems / WebRTC P2P",
     status: "Active Prototype",
     role: "System Architecture & Implementation",
     problem:
-      "Campus Wi-Fi networks and cellular data connections are often segmented, preventing peer-to-peer or local network file transfers between student devices.",
+      "Traditional file transfers depend on centralized cloud storage buckets, third-party authentication, or local network adjacency, creating privacy trade-offs and recurring storage overhead.",
     solution:
-      "Constructed a zero-authentication, cloud-relayed file transfer utility that buffers temporary file payloads in object storage and coordinates exchange via short-lived ephemeral key pairs.",
+      "Engineered a zero-cloud-storage transfer utility streaming DTLS-encrypted binary chunks directly between browsers over WebRTC SCTP data channels, utilizing OPFS for direct-to-disk streaming and Cloudflare Durable Objects for strongly consistent ephemeral signaling.",
     keyConcept:
-      "Stateless relay architecture using edge key-value storage and object storage lifecycle policies to eliminate persistent server footprint.",
+      "Browser-to-browser WebRTC SCTP streaming with OPFS direct-to-disk writing, backpressure flow control, and authoritative ephemeral session signaling without central cloud storage.",
     description:
-      "An anonymous, zero-authentication, cloud-relayed file transfer utility designed to help transfer files across restrictive or segmented university network environments, such as situations where campus Wi-Fi and cellular networks cannot communicate directly.",
-    tags: ["Cloudflare Pages", "Cloudflare R2", "Cloudflare KV", "Temporary Storage", "Edge Computing"],
+      "An anonymous, browser-based peer-to-peer file transfer application. Files stream directly browser-to-browser across end-to-end DTLS-encrypted WebRTC SCTP data channels using 8-digit pairing codes, OPFS direct-to-disk streaming, and SQLite-backed Cloudflare Durable Objects for ephemeral signaling with zero central cloud file storage.",
+    tags: ["WebRTC", "SCTP Data Channels", "OPFS Streaming", "Cloudflare Durable Objects", "Next.js", "OpenNext"],
     accentColor: "accent-cyan",
-    linkText: "View Project Details",
-    href: "https://github.com/shshmichael020-alt",
+    linkText: "View Repository",
+    href: "https://github.com/shshmichael020-alt/ghostshare",
+  },
+  {
+    id: "snapse",
+    index: "02 // WORK",
+    title: "Snapse",
+    subtitle: "Desktop Task Manager & Hardware Telemetry Suite",
+    category: "Desktop Systems / Hardware Telemetry",
+    status: "Windows V1 Prototype",
+    role: "Desktop Architecture & Systems Implementation",
+    problem:
+      "Default operating system diagnostic tools can be opaque, heavyweight, or lack granular per-core diagnostics, visual process trees, and safe process termination guards.",
+    solution:
+      "Engineered a modern Windows desktop task manager and hardware monitor in Tauri 2 and Rust, combining real-time hardware telemetry (CPU, RAM, disk I/O, network), process hierarchy inspection, and identity-verified process termination guards to prevent PID reuse race conditions.",
+    keyConcept:
+      "Low-overhead native hardware telemetry collection via sysinfo and Win32 APIs coupled with identity-verified process control safety guards and interactive Three.js 3D resource visualization.",
+    description:
+      "A modern, high-performance Windows desktop task manager and hardware system monitor built with Tauri 2, Rust, and React. Combines real-time normalized hardware telemetry (CPU, memory, disk I/O, network), process tree inspection, guarded process lifecycle controls (WM_CLOSE and TerminateProcess), and 3D WebGL resource landscapes.",
+    tags: ["Tauri 2", "Rust", "Win32 APIs", "React", "TypeScript", "Three.js WebGL", "System Telemetry"],
+    accentColor: "accent-cyan",
+    linkText: "View Repository",
+    href: "https://github.com/shshmichael020-alt/snapse-system-monitor",
   },
   {
     id: "ai-limit",
-    index: "02 // WORK",
+    index: "03 // WORK",
     title: "AI Limit",
-    subtitle: "Browser Extension for AI Usage Visibility",
-    category: "Browser Extension / WebExtensions",
+    subtitle: "Privacy-First Chromium HUD for AI Usage Tracking",
+    category: "Browser Extension / Manifest V3",
     status: "Active Development",
     role: "Extension Architecture & Frontend",
     problem:
-      "Developers and students using multiple AI providers (ChatGPT, Claude, Gemini, Copilot) frequently hit unexpected usage cutoffs due to opaque, fragmented quota windows.",
+      "Developers and students using multiple AI providers (ChatGPT, Claude, Gemini, Copilot) frequently hit unexpected usage cutoffs due to opaque, fragmented quota windows without unified local visibility.",
     solution:
-      "Engineered a browser extension that tracks active AI sessions, observes local interaction cadence, and presents unified visibility over rate limits and quota resets.",
+      "Engineered a Chromium browser extension maintaining two strictly separated lanes: provider-visible quota detection where officially exposed, and local O200K token activity estimation, keeping all prompts and session data strictly on-device.",
     keyConcept:
-      "Client-side interaction monitoring without transmitting user prompts or session credentials to external third parties.",
+      "Dual-lane architecture separating official provider-visible percentage data from local token counting heuristics, ensuring unverified estimates are never falsified as official quota.",
     description:
-      "A browser extension concept and tool for monitoring and understanding AI usage and limits across providers such as ChatGPT, Claude, Gemini, and GitHub Copilot. Explores separating provider-visible quota information, locally observed activity, and estimated usage states.",
-    tags: ["TypeScript", "WebExtensions API", "LLM Quota Tracking", "Client-Side State", "APIs"],
+      "A working Chromium browser-extension prototype providing a privacy-first usage HUD across ChatGPT, Claude, Gemini, and GitHub Copilot. Accurately distinguishes provider-visible quota data from locally measured activity, operating with zero external analytics and zero credential transmission.",
+    tags: ["Chromium Extension (MV3)", "TypeScript", "O200K Tokenizer", "Client-Side State", "Privacy-First"],
     accentColor: "accent-violet",
-    linkText: "View Project Details",
-    href: "https://github.com/shshmichael020-alt",
+    linkText: "View Repository",
+    href: "https://github.com/shshmichael020-alt/Universial_Ai_Limit_Checker",
   },
   {
     id: "deeptrust",
-    index: "03 // WORK",
+    index: "04 // WORK",
     title: "DeepTrust",
     subtitle: "Synthetic Video & Deepfake Detection Prototype",
     category: "Computer Vision / Security",
@@ -284,7 +305,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
     description:
       "Interactive physics and scientific visualization project exploring browser-based computational models and canvas rendering.",
     tags: "Physics / Scientific Visualization",
-    href: "https://github.com/shshmichael020-alt",
+    href: "https://github.com/shshmichael020-alt/physics_online",
   },
   {
     id: "ml-network-algorithms",
@@ -293,7 +314,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
     description:
       "Machine learning experiments and pattern recognition involving simulated network traffic flows and packet telemetry.",
     tags: "Machine Learning / Network Data",
-    href: "https://github.com/shshmichael020-alt",
+    href: "https://github.com/shshmichael020-alt/ML-Algorithms-Project",
   },
   {
     id: "nmap-topology",
@@ -344,7 +365,3 @@ const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export const BASE_PATH = rawBasePath
   ? (rawBasePath.startsWith("/") ? rawBasePath : `/${rawBasePath}`).replace(/\/$/, "")
   : "";
-
-
-
-

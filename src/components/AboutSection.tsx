@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { PERSONAL_INTERESTS, BASE_PATH } from "@/lib/constants";
+import { PERSONAL_INTERESTS } from "@/lib/constants";
 import StreamingText from "./StreamingText";
 
 export default function AboutSection() {
@@ -25,11 +24,10 @@ export default function AboutSection() {
           </h2>
         </div>
 
-        {/* Asymmetric 12-Column Editorial Grid: 7 Cols Text (Left) + 5 Cols Portrait (Right) */}
+        {/* Balanced 12-Column Editorial Grid: 7 Cols Narrative (Left) + 5 Cols Principles & Focus (Right) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Comprehensive Profile & Approach */}
+          {/* Left Column: Comprehensive Profile & Engineering Narrative */}
           <div className="lg:col-span-7 flex flex-col space-y-8">
-            {/* Lead & Narrative */}
             <div className="space-y-6 text-text-secondary leading-relaxed">
               <div className="text-white text-base sm:text-lg lg:text-xl font-normal leading-relaxed min-h-[4rem]">
                 <StreamingText
@@ -40,13 +38,13 @@ export default function AboutSection() {
                 />
               </div>
 
-              <div className="space-y-4 text-sm sm:text-base font-light text-text-secondary">
+              <div className="space-y-4 text-sm sm:text-base font-light text-text-secondary leading-relaxed">
                 <p>
-                  Currently pursuing a Bachelor of Technology (B.Tech) in Computer Science and Engineering at Jain University, Faculty of Engineering and Technology (FET). My academic studies provide the formal framework in algorithmic theory, operating systems, and discrete structures, but my deepest learning happens at the terminal.
+                  Currently pursuing a Bachelor of Technology (B.Tech) in Computer Science and Engineering at Jain University, Faculty of Engineering and Technology (FET). My academic coursework provides the formal framework in algorithmic theory, operating systems, computer architecture, and discrete structures, but my deepest learning happens hands-on at the terminal.
                 </p>
 
                 <p>
-                  I operate with a simple conviction: <strong className="text-white font-medium">the best way to understand complex systems is to dissect and build them from scratch</strong>. Whether analyzing raw network packets in Wireshark, inspecting memory and process isolation under Linux, or engineering zero-authentication cloud utilities to bypass real campus connectivity restrictions, I care about how technology works beneath the abstraction layers.
+                  I operate with a simple conviction: <strong className="text-white font-medium">the best way to understand complex systems is to dissect and build them from scratch</strong>. Whether analyzing raw network packets in Wireshark, inspecting memory and process isolation boundaries under Linux, or engineering zero-cloud-storage peer-to-peer utilities to overcome restrictive campus networks, I care about how technology operates beneath the abstraction layers.
                 </p>
 
                 <p>
@@ -55,12 +53,32 @@ export default function AboutSection() {
               </div>
             </div>
 
+            {/* Beyond the Terminal / Personal Interests */}
+            <div className="space-y-3 pt-6 border-t border-white/[0.06]">
+              <span className="text-xs font-mono uppercase tracking-wider text-text-muted block">
+                Beyond the Terminal
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {PERSONAL_INTERESTS.map((interest) => (
+                  <span
+                    key={interest}
+                    className="px-3 py-1.5 text-xs font-sans bg-surface-1/70 border border-white/[0.08] text-text-secondary"
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Engineering Principles */}
+          <div className="lg:col-span-5 flex flex-col space-y-6">
             {/* Guiding Principles / Engineering Approach */}
-            <div className="space-y-4 pt-4 border-t border-white/[0.06]">
+            <div className="space-y-3">
               <span className="text-xs font-mono uppercase tracking-wider text-white font-medium block">
                 Engineering Approach
               </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-3.5">
                 <div className="p-4 bg-surface-1/40 border border-white/[0.06] space-y-1.5">
                   <h4 className="text-xs font-mono font-medium text-white tracking-wide">
                     First Principles
@@ -96,53 +114,6 @@ export default function AboutSection() {
                     Maintaining an active lab notebook of computational models, traffic scripts, and prototype utilities.
                   </p>
                 </div>
-              </div>
-            </div>
-
-            {/* Personal Interests (Secondary - Beyond the Terminal) */}
-            <div className="space-y-3 pt-4 border-t border-white/[0.06]">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-text-muted block">
-                Beyond the Terminal
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {PERSONAL_INTERESTS.map((interest) => (
-                  <span
-                    key={interest}
-                    className="px-3 py-1 text-xs font-sans bg-surface-1 border border-white/[0.06] text-text-secondary"
-                  >
-                    {interest}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Editorial Portrait of Michael */}
-          <div className="lg:col-span-5 flex flex-col items-center lg:items-end w-full">
-            <div className="relative w-full max-w-md aspect-[3/4] bg-surface-1 border border-white/10 overflow-hidden shadow-2xl">
-              <Image
-                src={`${BASE_PATH}/assets/about-portrait-dark.png`}
-                alt="Michael Shah - Computer Science Student at Jain University"
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover object-[center_12%] filter contrast-[1.04] brightness-[0.98]"
-              />
-
-              {/* Atmospheric subtle overlays */}
-              <div className="absolute inset-0 pointer-events-none film-grain opacity-20" />
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-canvas/80 via-transparent to-transparent" />
-
-              {/* Editorial Caption Badge */}
-              <div className="absolute bottom-4 left-4 right-4 z-10 p-3 bg-canvas/90 backdrop-blur-md border border-white/10 flex items-center justify-between text-xs font-mono">
-                <div className="space-y-0.5">
-                  <span className="text-white font-medium block tracking-wide">
-                    Michael Shah
-                  </span>
-                  <span className="text-text-muted text-[11px] block">
-                    B.Tech CSE · Jain University (FET)
-                  </span>
-                </div>
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan" aria-hidden="true" />
               </div>
             </div>
           </div>
